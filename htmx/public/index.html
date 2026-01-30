@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hot Reload Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+      integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main hx-trigger="load" hx-get="/" hx-target="this"></main>
+    <script>
+      const sse = new EventSource("/hot-reload");
+      sse.onerror = () => {
+        console.log("Hot reload connection lost, reloading...");
+        setTimeout(() => location.reload(), 100);
+      };
+    </script>
+  </body>
+</html>
